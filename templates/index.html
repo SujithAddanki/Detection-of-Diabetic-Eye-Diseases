@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Diabetic Eye Disease Detection</h1>
+        <p>Advanced AI-powered detection for early diagnosis of diabetic eye diseases</p>
+        {% if not logged_in %}
+        <div class="hero-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline">Sign In</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="features-section">
+    <div class="container">
+        <h2>Why Choose Our Platform?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Quick Detection</h3>
+                <p>Get instant results using our advanced AI model trained on thousands of retinal images.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-eye"></i>
+                <h3>Multiple Disease Detection</h3>
+                <p>Detect various diabetic eye conditions including DR, DME, and other related diseases.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Accurate Results</h3>
+                <p>High accuracy rates backed by extensive research and validation.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure & Private</h3>
+                <p>Your data is encrypted and protected with industry-standard security measures.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if logged_in %}
+<div class="user-actions">
+    <div class="container">
+        <h2>Ready to Get Started?</h2>
+        <p>Upload your retinal image for instant disease detection</p>
+        <a href="{{ url_for('upload_file') }}" class="btn btn-primary">
+            <i class="fas fa-upload"></i>
+            Upload Image
+        </a>
+    </div>
+</div>
+{% endif %}
+
+<div class="how-it-works">
+    <div class="container">
+        <h2>How It Works</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-number">1</div>
+                <i class="fas fa-user-plus"></i>
+                <h3>Create Account</h3>
+                <p>Sign up for a free account to access our services.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <i class="fas fa-upload"></i>
+                <h3>Upload Image</h3>
+                <p>Upload your retinal image in supported formats.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <i class="fas fa-microscope"></i>
+                <h3>AI Analysis</h3>
+                <p>Our AI model analyzes your image for diseases.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <i class="fas fa-file-medical"></i>
+                <h3>Get Results</h3>
+                <p>Receive detailed results and recommendations.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

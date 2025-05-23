@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="results-container">
+    <div class="results-content">
+        <h1>Analysis Results</h1>
+
+        <div class="result-card">
+            <div class="result-image">
+                <img src="{{ url_for('static', filename='uploads/' + image_filename) }}" alt="Uploaded Image">
+            </div>
+
+            <div class="result-details">
+                <h2>Diagnosis</h2>
+                <div class="disease-name">{{ result }}</div>
+
+                <div class="confidence-meter">
+                    <h3>Confidence Level</h3>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: {{ confidence|float }}%"></div>
+                    </div>
+                    <div class="confidence-value">{{ confidence|float }}%</div>
+                </div>
+
+                <div class="result-description">
+                    <h3>About {{ result }}</h3>
+                    <p>This is a preliminary diagnosis based on the uploaded retinal image. Please consult with a healthcare professional for a complete medical evaluation.</p>
+                </div>
+
+                <div class="result-actions">
+                    <a href="{{ url_for('upload_file') }}" class="btn btn-primary">
+                        <i class="fas fa-upload"></i>
+                        Upload Another Image
+                    </a>
+                    <a href="{{ url_for('index') }}" class="btn btn-outline">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="feedback-section">
+            <h2>Was this diagnosis helpful?</h2>
+            <form method="POST" action="{{ url_for('feedback') }}" class="feedback-form">
+                <div class="feedback-buttons">
+                    <button type="submit" name="feedback" value="positive" class="btn btn-success">
+                        <i class="fas fa-thumbs-up"></i>
+                        Yes, it was helpful
+                    </button>
+                    <button type="submit" name="feedback" value="negative" class="btn btn-danger">
+                        <i class="fas fa-thumbs-down"></i>
+                        No, it wasn't helpful
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="upload-container">
+    <div class="upload-content">
+        <h1>Upload Retinal Image</h1>
+        <p class="upload-description">Upload your retinal image for instant disease detection. Supported formats: JPG, PNG</p>
+        
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <div class="file-input-container">
+                <input type="file" name="file" id="file" class="file-input" accept=".jpg,.jpeg,.png" required>
+                <label for="file" class="file-label">
+                    <i class="fas fa-cloud-upload-alt file-label-icon"></i>
+                    <span class="file-label-text">Choose Image or Drag & Drop</span>
+                </label>
+            </div>
+            
+            <div class="preview-container" id="preview-container">
+                <img id="image-preview" src="" alt="Preview">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-microscope"></i>
+                Detect Eye Disease
+            </button>
+            <p class="note text-muted mt-2">The AI will analyze your image and provide a predicted diagnosis.</p>
+        </form>
+        
+        <div class="upload-info">
+            <h3>Image Requirements</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> Clear, well-lit retinal image</li>
+                <li><i class="fas fa-check"></i> Minimum resolution: 800x600 pixels</li>
+                <li><i class="fas fa-check"></i> Maximum file size: 5MB</li>
+                <li><i class="fas fa-check"></i> Supported formats: JPG, PNG</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('file').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.src = e.target.result;
+            document.getElementById('preview-container').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+const dropZone = document.querySelector('.file-label');
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
+    dropZone.addEventListener(event, e => {
+        e.preventDefault();
+        e.stopPropagation();
+    }, false);
+});
+['dragenter', 'dragover'].forEach(event => dropZone.classList.add('highlight'));
+['dragleave', 'drop'].forEach(event => dropZone.classList.remove('highlight'));
+
+dropZone.addEventListener('drop', function(e) {
+    const dt = e.dataTransfer;
+    const file = dt.files[0];
+    document.getElementById('file').files = dt.files;
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.src = e.target.result;
+            document.getElementById('preview-container').style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %}
